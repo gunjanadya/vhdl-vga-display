@@ -41,37 +41,40 @@ end vga_ctrl;
 
 architecture Behavioral of vga_ctrl is
 
+signal hc, vc : std_logic_vector (9 downto 0) := (others => '0');
+
 begin
 
     process(clk) 
     begin
         if rising_edge(clk) then
-            if nbl = '1' and unsigned(hcount) < 800 then
-                hcount <= std_logic_vector( unsigned(hcount) + 1);
+            if nbl = '1' and unsigned(hc) < 800 then
+                hc <= std_logic_vector( unsigned(hc) + 1);
             else
-                hcount <= (others => '0');
-                if unsigned(vcount) < 525 then
-                    vcount <= std_logic_vector( unsigned(vcount) + 1);
+                hc <= (others => '0');
+                if unsigned(vc) < 525 then
+                    vc <= std_logic_vector( unsigned(vc) + 1);
                 else
-                    vcount <= (others => '0');
+                    vc <= (others => '0');
                 end if;
             end if;
-            if unsigned(hcount) < 640 and unsigned(vcount) < 480 then
+            if unsigned(hc) < 640 and unsigned(vc) < 480 then
                 vid <= '1';
             else
                 vid <= '0';
             end if;
-            if unsigned(hcount) > 655 and unsigned(hcount) < 750 then
+            if unsigned(hc) > 655 and unsigned(vc) < 750 then
                 hs <= '0';
             else
                 hs <= '1';
             end if;
-            if unsigned(vcount) > 489 and unsigned(vcount) < 492 then
+            if unsigned(vc) > 489 and unsigned(vc) < 492 then
                 vs <= '0';
             else
                 vs <= '1';
             end if;
         end if;
     end process;
-    
+    hcount <= hc;
+    vcount <= vc;
 end Behavioral;
