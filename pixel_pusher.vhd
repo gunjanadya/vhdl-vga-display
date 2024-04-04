@@ -41,7 +41,7 @@ end pixel_pusher;
 
 architecture Behavioral of pixel_pusher is
 
-signal add : std_logic_vector(17 downto 0);
+signal add : std_logic_vector(17 downto 0) := (others => '0');
 
 begin
    process(clk) 

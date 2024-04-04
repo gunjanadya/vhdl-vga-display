@@ -65,7 +65,7 @@ begin
             else
                 vid <= '0';
             end if;
-            if unsigned(hc) > 655 and unsigned(vc) < 750 then
+            if unsigned(hc) > 655 and unsigned(vc) < 752 then
                 hs <= '0';
             else
                 hs <= '1';
