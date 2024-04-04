@@ -48,14 +48,16 @@ begin
     process(clk) 
     begin
         if rising_edge(clk) then
-            if nbl = '1' and unsigned(hc) < 800 then
-                hc <= std_logic_vector( unsigned(hc) + 1);
-            else
-                hc <= (others => '0');
-                if unsigned(vc) < 525 then
-                    vc <= std_logic_vector( unsigned(vc) + 1);
+            if nbl = '1' then 
+                if unsigned(hc) < 800 then
+                    hc <= std_logic_vector( unsigned(hc) + 1);
                 else
-                    vc <= (others => '0');
+                    hc <= (others => '0');
+                    if unsigned(vc) < 525 then
+                        vc <= std_logic_vector( unsigned(vc) + 1);
+                    else
+                        vc <= (others => '0');
+                    end if;
                 end if;
             end if;
             if unsigned(hc) < 640 and unsigned(vc) < 480 then
