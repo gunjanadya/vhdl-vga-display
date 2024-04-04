@@ -35,7 +35,7 @@ entity vga_ctrl is
   Port ( 
       clk, nbl       : in  std_logic;
       vid, hs, vs    : out std_logic;
-      hcount, vcount : out  std_logic_vector(9 downto 0)
+      hcount, vcount : out std_logic_vector(9 downto 0)
   );
 end vga_ctrl;
 

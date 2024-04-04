@@ -41,16 +41,18 @@ end pixel_pusher;
 
 architecture Behavioral of pixel_pusher is
 
+signal add : std_logic_vector(17 downto 0);
+
 begin
    process(clk) 
     begin
         if rising_edge(clk) then
             if nbl = '1' then 
                 if unsigned(hcount) < 480 then
-                    adder <= std_logic_vector(unsigned(adder) + 1);
-                    r <= pixel(7 downto 5) & "00";
-                    g <= pixel(4 downto 2) & "000";
-                    b <= pixel(1 downto 0) & "000";
+                    add <= std_logic_vector(unsigned(add) + 1);
+                    r   <= pixel(7 downto 5) & "00";
+                    g   <= pixel(4 downto 2) & "000";
+                    b   <= pixel(1 downto 0) & "000";
                 else
                     r <= (others => '0');
                     g <= (others => '0');
@@ -59,5 +61,7 @@ begin
             end if;
         end if;
    end process;
+   
+adder <= add;
 
 end Behavioral;
