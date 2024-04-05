@@ -49,34 +49,44 @@ begin
     begin
         if rising_edge(clk) then
             if nbl = '1' then 
-                if unsigned(hc) < 800 then
+                if unsigned (hc) >= 0 and unsigned(hc) < 799 then
                     hc <= std_logic_vector( unsigned(hc) + 1);
                 else
                     hc <= (others => '0');
-                    if unsigned(vc) < 525 then
-                        vc <= std_logic_vector( unsigned(vc) + 1);
+                    if unsigned(hc) >= 0 and unsigned(vc) < 524 then
+                        vc <= std_logic_vector(unsigned(vc) + 1);
                     else
                         vc <= (others => '0');
                     end if;
                 end if;
             end if;
-            if unsigned(hc) < 640 and unsigned(vc) < 480 then
-                vid <= '1';
-            else
-                vid <= '0';
-            end if;
-            if unsigned(hc) > 655 and unsigned(vc) < 752 then
-                hs <= '0';
-            else
-                hs <= '1';
-            end if;
-            if unsigned(vc) > 489 and unsigned(vc) < 492 then
-                vs <= '0';
-            else
-                vs <= '1';
-            end if;
+            
         end if;
     end process;
+    
+    process(hc, vc)
+    begin
+    
+        if unsigned(hc) >= 0 and unsigned(hc) <= 639 and unsigned(vc) >= 0 and unsigned(vc) <= 479 then
+            vid <= '1';
+        else
+            vid <= '0';
+        end if;
+        
+        if unsigned(hc) >= 656 and unsigned(hc) <= 751 then
+            hs <= '0';
+        else
+            hs <= '1';
+        end if;
+        
+        if unsigned(vc) >= 490 and unsigned(vc) <= 491 then
+            vs <= '0';
+        else
+            vs <= '1';
+        end if;
+        
+    end process;
+    
     hcount <= hc;
     vcount <= vc;
 end Behavioral;

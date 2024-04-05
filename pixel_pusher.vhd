@@ -47,8 +47,7 @@ begin
    process(clk) 
     begin
         if rising_edge(clk) then
-            if nbl = '1' then 
-                if unsigned(hcount) < 480 then
+            if nbl = '1' and unsigned(hcount) < 480 and vid = '1' then
                     add <= std_logic_vector(unsigned(add) + 1);
                     r   <= pixel(7 downto 5) & "00";
                     g   <= pixel(4 downto 2) & "000";
@@ -57,7 +56,11 @@ begin
                     r <= (others => '0');
                     g <= (others => '0');
                     b <= (others => '0');
-                end if;
+                
+            end if;
+            
+            if vs = '0' then 
+                add <= (others => '0');
             end if;
         end if;
    end process;

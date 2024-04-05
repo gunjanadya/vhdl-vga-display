@@ -48,11 +48,13 @@ begin
 process(clk) 
 begin
     if rising_edge(clk) then
-        
+
         -- division 
-        if (unsigned(count) < 5) then
+        if (unsigned(count) < 4) then
             count <= std_logic_vector(unsigned(count) + 1);
-            nbl   <= '0';            
+
+            nbl   <= '0';   
+    
         else
             nbl   <= '1'; 
             count <= (others => '0');
